@@ -1,0 +1,62 @@
+{% include "header.html" %}
+
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+</style>
+
+<body>
+    <div class="custom-container" id="container">
+        <input id="image_hide" type="hidden" value="{{url_for('static', filename='image/' + image_name)}}">
+        <img id="image" src="#" alt="Hidden Image">
+    </div>
+</body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        function generateRectangles(rows, cols) {
+            const container = document.getElementById('container');
+            const containerWidth = container.offsetWidth;
+            const containerHeight = container.offsetHeight;
+
+            const rectWidth = containerWidth / cols;
+            const rectHeight = containerHeight / rows;
+
+            let number = 1
+            for (let row = 0; row < rows; row++) {
+                for (let col = 0; col < cols; col++) {
+                    // Create a rectangle
+                    const rectangle = document.createElement('div');
+                    rectangle.classList.add('rectangle');
+                    rectangle.style.width = `${rectWidth}px`;
+                    rectangle.style.height = `${rectHeight}px`;
+                    rectangle.style.left = `${col * rectWidth}px`;
+                    rectangle.style.top = `${row * rectHeight}px`;
+
+                    // Add click event to hide the rectangle
+                    rectangle.addEventListener('click', () => {
+                        rectangle.style.display = 'none';
+                    });
+
+                    rectangle.innerHTML += number
+                    // Append rectangle to container
+                    container.appendChild(rectangle);
+
+                    number = number + 1
+                }
+            }
+
+            image_hide = document.getElementById('image_hide').value
+            image = document.getElementById('image')
+            image.src = image_hide
+        }
+
+        // Generate rectangles based on grid size (e.g., 5x5 or 4x4)
+        const rows = 10; // Change this value for rows
+        const cols = 10; // Change this value for columns
+        generateRectangles(rows, cols);
+    });
+</script>

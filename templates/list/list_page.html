@@ -1,0 +1,20 @@
+{% include "header.html" %}
+
+<body>
+    <div class="container mt-5">
+        <table>
+            <tbody>
+                {% for i in file_list %}
+                <tr>
+                    <td>
+                        i
+                    </td>
+                    <td>
+                        <a type="button" >Click</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
