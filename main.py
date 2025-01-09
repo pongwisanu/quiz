@@ -57,6 +57,10 @@ def GamblingPage():
 def GamblingNumber():
     return render_template('gambling/ran_number.html')
 
+@app.route("/gambling/unqnumber")
+def GamblingUnqNumber():
+    return render_template('gambling/unq_number.html')
+
 @app.route("/gambling/horse")
 def GamblingHorse():
     return render_template("gambling/horse.html")
