@@ -1,8 +1,107 @@
 {% include "header.html" %}
 
+<style>
+    .overlay {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        cursor: pointer;
+        z-index: 2000;
+    }
+
+    .hint-column {
+        background-color: rgb(195, 240, 255);
+        cursor: pointer;
+    }
+
+    .hint-column:hover {
+        background-color: rgb(56, 238, 238);
+    }
+
+    .answer {
+        background-color: green;
+        width: 100%;
+        cursor: pointer;
+    }
+</style>
+
 <body>
     <div class="container mt-5">
-        {{full_path}}
-        <img src="{{full_path}}" alt="Hidden Image">
+        <div id="json">
+            <div class="mb-5">
+                <label id="subject"></label>
+            </div>
+            <div>
+
+            </div>
+            <table id="table-hint" class="">
+                <tbody id="hint">
+                </tbody>
+            </table>
+            <div class="mt-5">
+                <div class="row">
+                    <div class="col-2">
+                        <label>Answer : </label>
+                    </div>
+                    <div class="col answer" onclick="Showanswer(this)">
+                        <label id="answer-hide" style="display: none;"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        async function generateQuiz() {
+            const quiz = await GetQuiz()
+
+            const subject = $('#subject').text(quiz['subject'])
+            const answer = $('#answer-hide').text(quiz['answer'])
+
+            quiz['hint'].forEach((v, i) => {
+                body = "<tr>"
+                body += "<td>"
+                body += i + 1
+                body += "</td>"
+                body += "<td style='width: 100%;' class='hint-column' onclick='Showhint(this)'>"
+                body += "<label style='display: none;' class='hint-text'>" + v + "</label>"
+                body += "</td>"
+                body += "</tr>"
+
+                $('#hint').append(body)
+            })
+        }
+
+        generateQuiz();
+    })
+
+    async function Showhint(detail) {
+
+        const element = $(detail)
+        element.removeClass('hint-column')
+
+        console.log(element.find('.hint-text').text())
+        element.find('.hint-text').show()
+    }
+
+    async function Showanswer(detail) {
+        const element = $(detail)
+
+        element.removeClass('answer')
+
+        element.find('#answer-hide').show()
+    }
+
+    async function GetQuiz() {
+        url = "{{url_for('GetQuiz')}}?name={{path}}"
+        const res = await fetch(url)
+        const json = await res.json()
+
+        return json
+    }
+</script>
