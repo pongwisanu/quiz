@@ -47,5 +47,19 @@ def ImageQuiz():
     quiz = request.args.get("name")
     return render_template("image/quiz.html", image_name=quiz)
 
+
+# Gambling
+@app.route("/gambling")
+def GamblingPage():
+    return render_template("gambling/gambling_page.html")
+
+@app.route("/gambling/number")
+def GamblingNumber():
+    return render_template('gambling/ran_number.html')
+
+@app.route("/gambling/horse")
+def GamblingHorse():
+    return render_template("gambling/horse.html")
+
 if __name__ == "__main__":
     app.run("0.0.0.0", 5000 , True)
