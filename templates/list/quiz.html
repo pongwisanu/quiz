@@ -26,23 +26,27 @@
         width: 100%;
         cursor: pointer;
     }
+
+    td {
+        padding: 15px;
+    }
 </style>
 
 <body>
     <div class="container mt-5">
         <div id="json">
             <div class="mb-5">
-                <label id="subject"></label>
+                <label style="font-size: 50px;" id="subject"></label>
             </div>
             <div>
 
             </div>
-            <table id="table-hint" class="">
+            <table id="table-hint" style="font-size: 50px;">
                 <tbody id="hint">
                 </tbody>
             </table>
             <div class="mt-5">
-                <div class="row">
+                <div class="row" style="font-size: 50px;">
                     <div class="col-2">
                         <label>Answer : </label>
                     </div>
@@ -66,7 +70,7 @@
             quiz['hint'].forEach((v, i) => {
                 body = "<tr>"
                 body += "<td>"
-                body += i + 1
+                body += (i + 1) + "."
                 body += "</td>"
                 body += "<td style='width: 100%;' class='hint-column' onclick='Showhint(this)'>"
                 body += "<label style='display: none;' class='hint-text'>" + v + "</label>"

@@ -16,6 +16,7 @@ def Index():
 def ListPage():
     list_path = os.path.join(CURRENT_PATH, "static/list")
     dir_list = os.listdir(list_path)
+    dir_list.sort()
     return render_template("list/list_page.html", file_list=dir_list)
 
 @app.route("/list/quiz")
@@ -27,14 +28,10 @@ def ListQuiz():
 
 @app.route("/list/getquiz", methods=['GET'])
 def GetQuiz():
-    
     quiz = request.args.get("name")
-    
     data = {}
-    
     with open(quiz, "r") as f:
         data = json.load(f)
-    
     return data
 
 # Image
@@ -42,6 +39,7 @@ def GetQuiz():
 def ImagePage():
     image_path = os.path.join(CURRENT_PATH, "static/image")
     dir_list = os.listdir(image_path)
+    dir_list.sort()
     return render_template("image/image_page.html", file_list=dir_list)
 
 @app.route("/image/quiz")
